@@ -5,10 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Pack {
-    private List<Domino> dominos;
+   private List<Domino> dominos;
+    private static Pack pack = null;
     
     //constructor
-    public Pack() {
+    Pack() {
         dominos = new ArrayList<>();
         //Create dominoes then put them in the domino pack
         for (int i = 0; i <= 6; i++) {
@@ -17,6 +18,14 @@ public class Pack {
             }
         }
         shuffle();//Make the dominos list random
+    }
+    
+    public static Pack getPack() {
+     if(pack == null) {
+        pack = new Pack();   
+    }
+       return pack;
+       
     }
     
     //check if the domino's pack is empty
