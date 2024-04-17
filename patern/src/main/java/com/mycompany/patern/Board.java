@@ -5,10 +5,20 @@ import java.util.List;
 
 public class Board {
     private List<Domino> playedDominos;
+    private static Board board = null;
+    
     
     //constructor 
-    public Board() {
+    Board() {
         this.playedDominos = new ArrayList<>();
+    }
+    
+    public static Board getBoard() {
+     if(board == null) {
+        board = new Board();   
+    }
+       return board;
+       
     }
     
     //check if the selected domino piece is available to place on the board
