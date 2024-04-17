@@ -7,6 +7,8 @@ public class Tester {
 
     public static void main(String[] args) {
         
+        GameElementFactory factory = new ConcreteGameElementFactory();
+        
         //create players
         Player player1 = new Player("Player 1");
         Player player2 = new Player("Player 2");
@@ -17,8 +19,11 @@ public class Tester {
         players.add(player2);
         
         //create a game for these players
-        Game game = new Game(players);
+        Game game = new Game(players, factory.createBoard(), factory.createPack());
         game.start();//Start the game
+        
+        game.playRound(player1);
+        game.playRound(player2);
     
     }
     
