@@ -4,17 +4,21 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Game {
-    private Board board;
+   private Board board;
     private Pack pack;
     private List<Player> players;
     
     //constructor
     public Game(List<Player> players) {
-        this.board = new Board();//Create a new board from the Board class
-        this.pack = new Pack();//Create a new domino pack from the Pack class
+        this.board =Board.getBoard();//Create a new board from the Board class
+        this.pack = Pack.getPack();//Create a new domino pack from the Pack class
         this.players = players;//Store the player list that gets
     }
-    
+    public Game(List<Player> players, Board board, Pack pack) {
+        this.board = board;
+        this.pack = pack;
+        this.players = players;
+    }
     //Start the game by giving each player 7 dominoes in their hands from the pack 
     public void start() {
         for (Player player : players) {
@@ -28,11 +32,14 @@ public class Game {
     //Start the game rounds
     public void playGame() {
         while (!isGameFinished()) {
+            
             for (Player player : players) {
                 playRound(player);// Give each player rounds until the game is finished
             }
         }
+        //System.out.println(board.hashCode());
         printFinalScores();//After the game is finished print the final score
+        
     }
 
     private boolean isGameFinished() {
@@ -81,6 +88,7 @@ public class Game {
         System.out.println("Current state:");
         System.out.println(player.getName() + "'s Hand: " + player.getHand());
         System.out.println(board);
+        
 
         System.out.println(player.getName() + "'s turn:");
         //Back if the player doesn't have a valid move
