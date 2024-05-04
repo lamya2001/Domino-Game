@@ -1,70 +1,71 @@
-package com.mycompany.patern;
 
+package patternproject;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Game {
-   private Board board;
-    private Pack pack;
-    private List<Player> players;
-    
-    //constructor
-    public Game(List<Player> players) {
-        this.board =Board.getBoard();//Create a new board from the Board class
-        this.pack = Pack.getPack();//Create a new domino pack from the Pack class
-        this.players = players;//Store the player list that gets
-    }
+
+
+public class Game implements GameElement {
+    private List<GameElement> gameElements;
+
     public Game(List<Player> players, Board board, Pack pack) {
-        this.board = board;
-        this.pack = pack;
-        this.players = players;
-    }
-    //Start the game by giving each player 7 dominoes in their hands from the pack 
-    public void start() {
-        for (Player player : players) {
-            player.drawFromPack(pack, 7);
-            System.out.println(player);//Print each player's Domino's collection
-        }
-        //Start the game rounds
-        playGame();
-    }
-    
-    //Start the game rounds
-    public void playGame() {
-        while (!isGameFinished()) {
-            
-            for (Player player : players) {
-                playRound(player);// Give each player rounds until the game is finished
-            }
-        }
-        //System.out.println(board.hashCode());
-        printFinalScores();//After the game is finished print the final score
-        
+        gameElements = new ArrayList<>();
+        gameElements.addAll(players);
+        gameElements.add(board);
+        gameElements.add(pack);
     }
 
-    private boolean isGameFinished() {
-        //Check if players finish their domino list
-        for (Player player : players) {
-            if (player.getHand().isEmpty()) {
-                //The first player who finishes his domino list is the winner
-                System.out.println(player.getName() + " has finished! " + player.getName() + " wins!");
-                return true;
+    @Override
+    public void start() {
+        for (GameElement element : gameElements) {
+            if (element instanceof Player) {
+                Player player = (Player) element;
+                player.drawFromPack(getPack(), 7);
+                System.out.println(player);
             }
         }
-        
-        //Check if the domino tiles the players have valid to play with them.
+        playGame();
+    }
+
+    public void playGame() {
+        while (!isGameFinished()) {
+            for (GameElement element : gameElements) {
+                if (element instanceof Player) {
+                    Player player = (Player) element;
+                    playRound(player);
+                }
+            }
+        }
+        printFinalScores();
+    }
+
+    @Override
+    public boolean isGameFinished() {
+        for (GameElement element : gameElements) {
+            if (element instanceof Player) {
+                Player player = (Player) element;
+                if (player.getHand().isEmpty()) {
+                    System.out.println(player.getName() + " has finished! " + player.getName() + " wins!");
+                    return true;
+                }
+            }
+        }
+
+        List<Player> players = getPlayers();
         for (Player player : players) {
             if (playerHasValidMove(player)) {
                 return false;
             }
         }
-        
+
         System.out.println("No valid moves left. The game is a draw!");
         return true;
     }
-    
-    //Check if the domino tiles the players have valid to play with them.
+
     private boolean playerHasValidMove(Player player) {
+        Board board = getBoard();
         for (Domino domino : player.getHand()) {
             if (board.canPlace(domino)) {
                 return true;
@@ -72,65 +73,90 @@ public class Game {
         }
         return false;
     }
-    
-    //print Final Scores for each player
-    private void printFinalScores() {
+
+    @Override
+    public void printFinalScores() {
+        List<Player> players = getPlayers();
         for (Player player : players) {
             System.out.println(player.getName() + "'s final score: " + player.getScore());
         }
     }
-    
-    
+
+    @Override
     public void playRound(Player player) {
         Scanner scanner = new Scanner(System.in);
-
-        // Display current state 
+        Board board = getBoard();
         System.out.println("Current state:");
         System.out.println(player.getName() + "'s Hand: " + player.getHand());
         System.out.println(board);
-        
-
         System.out.println(player.getName() + "'s turn:");
-        //Back if the player doesn't have a valid move
         if (!playerHasValidMove(player)) {
             System.out.println(player.getName() + " has no valid moves. Skipping turn.");
             return;
         }
-
-        // Ask the user to choose a domino to play
-        System.out.println("Select a domino to play by entering its index (0 to " + (player.getHand().size() - 1) + "):");
-        int dominoIndex = scanner.nextInt();
-
-        // Validate the input
-        if (dominoIndex < 0 || dominoIndex >= player.getHand().size()) {
-            System.out.println("Invalid input. Please enter a valid index.");
-            return;
-        }
-        Domino selectedDomino = player.getHand().get(dominoIndex);
-
-        // Attempt to play the selected domino
-        if (board.canPlace(selectedDomino)) {
-            player.playDomino(board, selectedDomino);
-            System.out.println(player.getName() + " plays " + selectedDomino);
-            System.out.println(board);
-
-            // Check for a double domino to give the player an extra turn
-            if (selectedDomino.getSide1() == selectedDomino.getSide2()) {
-                System.out.println(player.getName() + " played a double domino and gets an extra turn!");
-                playRound(player);
+        boolean invalidMovePrinted = false; // Flag to track if the invalid move message has been printed
+        while (!invalidMovePrinted) {
+            System.out.println("Select a domino to play by entering its index (0 to " + (player.getHand().size() - 1) + "):");
+            int dominoIndex = scanner.nextInt();
+            if (dominoIndex < 0 || dominoIndex >= player.getHand().size()) {
+                System.out.println("Invalid input. Please enter a valid index.");
+                 continue; // Continue the loop to prompt the user again
             }
-        } else {
-            System.out.println("Invalid move. Cannot place the selected domino on the board.");
-        }
+            Domino selectedDomino = player.getHand().get(dominoIndex);
+            if (board.canPlace(selectedDomino)) {
+                player.playDomino(board, selectedDomino);
+                System.out.println(player.getName() + " plays " + selectedDomino);
+                System.out.println(board);
+                if (selectedDomino.getSide1() == selectedDomino.getSide2()) {
+                    System.out.println(player.getName() + " played a double domino and gets an extra turn!");
+                    playRound(player);
+                }
+                break; // Exit the loop as a valid move has been played
+            } else {
+                if (!invalidMovePrinted) {
+                    System.out.println("Invalid move. Cannot place the selected domino on the board.");
+                    invalidMovePrinted = true; // Set the flag to true to indicate that the message has been printed
+                }
+            }
+    }
 
+        List<Player> players = getPlayers();
         for (Player p : players) {
             p.updateScore();
             System.out.println(p.getName() + "'s score: " + p.getScore());
         }
 
         for (Player p : players) {
-            System.out.println(player.getName() + "'s final hand: " + player.getHand());
+            System.out.println(p.getName() + "'s final hand: " + p.getHand());
         }
+    
     }
-      
+
+    private Board getBoard() {
+        for (GameElement element : gameElements) {
+            if (element instanceof Board) {
+                return (Board) element;
+            }
+        }
+        throw new IllegalStateException("No Board found");
+    }
+
+    private Pack getPack() {
+        for (GameElement element : gameElements) {
+            if (element instanceof Pack) {
+                return (Pack) element;
+            }
+        }
+        throw new IllegalStateException("No Pack found");
+    }
+
+    private List<Player> getPlayers() {
+        List<Player> players = new ArrayList<>();
+        for (GameElement element : gameElements) {
+            if (element instanceof Player) {
+                players.add((Player) element);
+            }
+        }
+        return players;
+    }
 }
