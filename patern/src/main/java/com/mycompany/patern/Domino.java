@@ -1,4 +1,6 @@
-package com.mycompany.patern;
+
+package patternproject;
+
 
 public class Domino {
     private int side1;
@@ -27,4 +29,3 @@ public class Domino {
         return "[" + side1 + "|" + side2 + "]";
     }
 }
-
