@@ -1,63 +1,91 @@
-package com.mycompany.patern;
+
+package patternproject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Board {
+public class Board implements GameElement {
     private List<Domino> playedDominos;
     private static Board board = null;
-    
-    
-    //constructor 
+
     Board() {
         this.playedDominos = new ArrayList<>();
     }
-    
+
     public static Board getBoard() {
-     if(board == null) {
-        board = new Board();   
+        if (board == null) {
+            board = new Board();
+        }
+        return board;
     }
-       return board;
-       
-    }
-    
-    //check if the selected domino piece is available to place on the board
+
     public boolean canPlace(Domino domino) {
-        
-        //if the board is empty any piece could place
-        if (playedDominos.isEmpty()) {
-            return true;
-        }
-        
-        //take head and tail values for the placed domino
-        int head = playedDominos.get(0).getSide1();
-        int tail = playedDominos.get(playedDominos.size() - 1).getSide2();
-        
-        //return whether the head and tail values for the selected domino match the head and tail values for the placed domino
-        return domino.getSide1() == head || domino.getSide2() == head ||
-                domino.getSide1() == tail || domino.getSide2() == tail;
+    if (playedDominos.isEmpty()) {
+        return true;
     }
-    
-    //Place the domino on the board
+    int head = playedDominos.get(0).getSide1();
+    int tail = playedDominos.get(playedDominos.size() - 1).getSide2();
+    return domino.getSide1() == head || domino.getSide2() == head ||
+            domino.getSide1() == tail || domino.getSide2() == tail;
+}
+
+
     public void place(Domino domino) {
-        if (playedDominos.isEmpty()) {
-            playedDominos.add(domino);
-        } 
-        //check if the domino sides are equal tail or head for the first or last dominos on the board
-        else if (domino.getSide1() == playedDominos.get(0).getSide1()) {
-            playedDominos.add(0, domino);
-        } else if (domino.getSide2() == playedDominos.get(0).getSide1()) {
-            playedDominos.add(0, new Domino(domino.getSide2(), domino.getSide1()));
-        } else if (domino.getSide1() == playedDominos.get(playedDominos.size() - 1).getSide2()) {
-            playedDominos.add(domino);
-        } else if (domino.getSide2() == playedDominos.get(playedDominos.size() - 1).getSide2()) {
-            playedDominos.add(new Domino(domino.getSide2(), domino.getSide1()));
-        }
+    if (playedDominos.isEmpty()) {
+        playedDominos.add(domino);
+        return;
     }
-    
-    //Print the board
+
+    int head = playedDominos.get(0).getSide1();
+    int tail = playedDominos.get(playedDominos.size() - 1).getSide2();
+
+    if (domino.getSide1() == head) {
+        playedDominos.add(0, new Domino(domino.getSide2(), domino.getSide1()));
+    } else if (domino.getSide2() == head) {
+        playedDominos.add(0, domino);
+    } else if (domino.getSide1() == tail) {
+        playedDominos.add(domino);
+    } else if (domino.getSide2() == tail) {
+        playedDominos.add(new Domino(domino.getSide2(), domino.getSide1()));
+    } else {
+        System.out.println("Invalid move. Cannot place the selected domino on the board.");
+    }
+}
+
+
+
+
     @Override
     public String toString() {
-        return "Board: " + playedDominos;
+        StringBuilder stringBuilder = new StringBuilder("Board: [");
+        for (Domino domino : playedDominos) {
+            stringBuilder.append("[")
+                         .append(domino.getSide1())
+                         .append("|")
+                         .append(domino.getSide2())
+                         .append("], ");
+        }
+        if (stringBuilder.length() > 8) { // Check if there are any dominos played
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()); // Remove the extra comma and space at the end
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+    
+
+    public void start() {
+        // No implementation needed for Board
+    }
+
+    public void playRound(Player player) {
+        // No implementation needed for Board
+    }
+
+    public boolean isGameFinished() {
+        // No implementation needed for Board
+        return false;
+    }
+
+    public void printFinalScores() {
+        // No implementation needed for Board
     }
 }
