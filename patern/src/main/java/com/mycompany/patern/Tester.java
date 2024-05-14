@@ -4,7 +4,7 @@ package patternproject;
 import java.util.ArrayList;
 import java.util.List;
 
-ublic class Tester {
+public class Tester {
     public static void main(String[] args) {
         // Create game elements
         Player player1 = new Player("Player 1");
