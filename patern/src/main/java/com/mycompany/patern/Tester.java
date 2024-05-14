@@ -4,19 +4,33 @@ package patternproject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Tester {
+ublic class Tester {
     public static void main(String[] args) {
-        GameElementFactory factory = new ConcreteGameElementFactory();
-        Player player1 = factory.createPlayer("Player 1");
-        Player player2 = factory.createPlayer("Player 2");
-        List<Player> players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-        Board board = factory.createBoard();
-        Pack pack = factory.createPack();
+        // Create game elements
+        Player player1 = new Player("Player 1");
+        Player player2 = new Player("Player 2");
+        Board board = new Board();
+        Pack pack = new Pack();
 
-        Game game = new Game(players, board, pack);
-        game.start();
+        // Construct the composite structure
+        board.addElement(player1);
+        board.addElement(player2);
+        board.addElement(pack);
+
+        // Start the game
+        board.start();
+
+        // Play a round
+        board.playRound();
+
+        // Check if the game is finished
+        if (board.isGameFinished()) {
+            System.out.println("The game is finished.");
+        } else {
+            System.out.println("The game is not finished.");
+        }
+
+        // Print final scores
+        board.printFinalScores();
     }
 }
