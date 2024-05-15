@@ -94,13 +94,13 @@ public class Game implements GameElement {
             System.out.println(player.getName() + " has no valid moves. Skipping turn.");
             return;
         }
-        boolean invalidMovePrinted = false; // Flag to track if the invalid move message has been printed
+        boolean invalidMovePrinted = false; 
         while (!invalidMovePrinted) {
             System.out.println("Select a domino to play by entering its index (0 to " + (player.getHand().size() - 1) + "):");
             int dominoIndex = scanner.nextInt();
             if (dominoIndex < 0 || dominoIndex >= player.getHand().size()) {
                 System.out.println("Invalid input. Please enter a valid index.");
-                 continue; // Continue the loop to prompt the user again
+                 continue; 
             }
             Domino selectedDomino = player.getHand().get(dominoIndex);
             if (board.canPlace(selectedDomino)) {
@@ -111,11 +111,11 @@ public class Game implements GameElement {
                     System.out.println(player.getName() + " played a double domino and gets an extra turn!");
                     playRound(player);
                 }
-                break; // Exit the loop as a valid move has been played
+                break; 
             } else {
                 if (!invalidMovePrinted) {
                     System.out.println("Invalid move. Cannot place the selected domino on the board.");
-                    invalidMovePrinted = true; // Set the flag to true to indicate that the message has been printed
+                    invalidMovePrinted = true; 
                 }
             }
     }
