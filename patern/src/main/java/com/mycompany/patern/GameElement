@@ -1,4 +1,5 @@
 
+
 package patternproject;
 
 public interface GameElement {
