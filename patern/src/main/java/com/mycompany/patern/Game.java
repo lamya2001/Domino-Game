@@ -1,4 +1,3 @@
-
 package patternproject;
 
 import java.util.ArrayList;
@@ -132,6 +131,7 @@ public class Game implements GameElement {
     
     }
 
+    
     private Board getBoard() {
         for (GameElement element : gameElements) {
             if (element instanceof Board) {
@@ -158,5 +158,13 @@ public class Game implements GameElement {
             }
         }
         return players;
+    }
+    
+        @Override
+    public void printInfo() {
+        System.out.println("Game Information:");
+        for (GameElement element : gameElements) {
+            element.printInfo();
+        }
     }
 }
