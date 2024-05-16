@@ -1,7 +1,6 @@
-
 package patternproject;
 
-public interface GameElementFactory extends GameElement{
+public interface GameElementFactory {
     Player createPlayer(String name);
     Board createBoard();
     Pack createPack();
