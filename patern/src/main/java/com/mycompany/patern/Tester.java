@@ -1,9 +1,6 @@
-
 package patternproject;
 
-import java.util.ArrayList;
-import java.util.List;
-    
+import java.util.Scanner;
   public class Tester {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -32,7 +29,7 @@ import java.util.List;
         sc.close();
     }
   
-    }
+    
  private static boolean isValidInput(String input) {
         try {
             int value = Integer.parseInt(input);
