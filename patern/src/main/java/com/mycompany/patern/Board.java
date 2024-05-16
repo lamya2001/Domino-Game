@@ -1,4 +1,3 @@
-
 package patternproject;
 
 import java.util.ArrayList;
@@ -68,19 +67,28 @@ public class Board implements GameElement {
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
+    
+    @Override
+    public void printInfo() {
+        System.out.println("Board: " + this);
+    }  
+    @Override
     public void start() {
         // No implementation needed for Board
     }
 
+    @Override
     public void playRound(Player player) {
         // No implementation needed for Board
     }
 
+    @Override
     public boolean isGameFinished() {
         // No implementation needed for Board
         return false;
     }
 
+    @Override
     public void printFinalScores() {
         // No implementation needed for Board
     }
