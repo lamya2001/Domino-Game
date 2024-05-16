@@ -1,4 +1,3 @@
-
 package patternproject;
 
 import java.util.ArrayList;
@@ -39,6 +38,11 @@ public class Pack implements GameElement {
             return dominos.remove(0);
         }
         return null;
+    }
+    
+       @Override
+    public void printInfo() {
+        System.out.println("Pack contains " + dominos.size() + " dominos.");
     }
 
     @Override
