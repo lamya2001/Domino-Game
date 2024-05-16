@@ -1,4 +1,3 @@
-
 package patternproject;
 
 import java.util.ArrayList;
@@ -54,6 +53,12 @@ public class Player implements GameElement {
         return name + "'s Hand: " + hand;
     }
 
+    @Override
+    public void printInfo() {
+        System.out.println("Player Name: " + name);
+        System.out.println("Hand: " + hand);
+        System.out.println("Score: " + score);
+    }
     @Override
     public void start() {
         // No implementation needed for Player
