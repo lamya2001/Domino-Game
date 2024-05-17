@@ -3,18 +3,34 @@ package patternproject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board implements GameElement {
+public class Board implements GameElement, Subject{
     private List<Domino> playedDominos;
     private static Board board = null;
+    private List<Observer> observers;
 
     private Board() {
         this.playedDominos = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
     public static Board getBoard() {
         if (board == null) {
             board = new Board();
         }
         return board;
+    }
+    @Override
+    public void attach(Observer o) {
+        observers.add(o);
+    }
+    @Override
+    public void detach(Observer o) {
+        observers.remove(o);
+    }
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
     }
     public boolean canPlace(Domino domino) {
     if (playedDominos.isEmpty()) {
@@ -29,6 +45,7 @@ public class Board implements GameElement {
     public void place(Domino domino) {
     if (playedDominos.isEmpty()) {
         playedDominos.add(domino);
+        notifyObservers();
         return;
     }
 
