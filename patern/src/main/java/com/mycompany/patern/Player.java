@@ -3,7 +3,7 @@ package patternproject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements GameElement {
+public class Player implements GameElement, Observer{
     private String name;
     private List<Domino> hand;
     private int score;
@@ -24,6 +24,13 @@ public class Player implements GameElement {
 
     public int getScore() {
         return score;
+    }
+
+    @Override
+    public void update() {
+        
+        System.out.println(name + " has been notified of a change!");
+        
     }
 
     public void drawFromPack(Pack pack, int numDominos) {
