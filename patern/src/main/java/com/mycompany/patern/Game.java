@@ -14,6 +14,10 @@ public class Game implements GameElement {
         gameElements.addAll(players);
         gameElements.add(board);
         gameElements.add(pack);
+
+        for (Player player : players) {
+            board.attach(player);
+        }
     }
 
     @Override
