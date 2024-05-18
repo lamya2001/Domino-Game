@@ -5,7 +5,7 @@ import java.util.Scanner;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         // Creating a Factory object to create game elements
-        GameElementFactory factory = new ConcreteGameElementFactory();
+        ConcreteGameElementFactory factory = new ConcreteGameElementFactory();
         
         // Decision to start the game
         int startDecision = -1;
@@ -22,7 +22,7 @@ import java.util.Scanner;
                 startDecision = Integer.parseInt(input);
                 
                 // Creating the game using the Factory
-                Game game = factory.createGame(startDecision);
+                GameElement game = factory.createGame(startDecision);
                 
                 // Checking if the game was successfully created or not
                 if (game == null) {
