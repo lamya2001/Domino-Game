@@ -146,7 +146,7 @@ public class Game implements GameElement {
                 executeCommand(playCommand);
                 
                 System.out.println(board);
-                System.out.println("do you want undo? inter 1 for yes 0 for no:");
+                System.out.println("do you want undo? inter \"1 for yes\" or \" 0 for no:\"");
                 int undo = scanner.nextInt();
                 if (undo == 1) {
                     undoCommand();
@@ -166,6 +166,7 @@ public class Game implements GameElement {
                     invalidMovePrinted = true; 
                 }
             }
+
         }
         
         // Update and print scores after each round
@@ -173,7 +174,16 @@ public class Game implements GameElement {
         for (Player p : players) {
             p.updateScore();
             System.out.println(p.getName() + "'s remaining dominoes: " + p.getScore());
-        }      
+        } 
+        
+            int useSpeedyPlayerDecorator = 0; 
+            System.out.println("Do you want to tell the next player to speed up?inter \"1 for yes\" or \" 0 for no:\"");
+            useSpeedyPlayerDecorator=scanner.nextInt();
+            if(useSpeedyPlayerDecorator==1){
+                GameElement playerSpeed=new SpeedyPlayerDecorator(player);
+                playerSpeed.playRound(player);   
+            }
+      
     }
 
     // Retrieve the board from the game elements
