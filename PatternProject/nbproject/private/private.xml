@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Tester.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Game.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Command.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Pack.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Board.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Player.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/PlayDominoCommand.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Domino.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/ConcreteGameElementFactory.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/GameElement.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Subject.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/GameElementFactory.java</file>
+            <file>file:/C:/Users/lamya/Documents/NetBeansProjects/PatternProject/src/patternproject/Observer.java</file>
+        </group>
+    </open-files>
+</project-private>
