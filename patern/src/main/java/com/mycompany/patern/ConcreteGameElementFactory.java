@@ -3,11 +3,11 @@ package patternproject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConcreteGameElementFactory implements GameElementFactory{
+public class ConcreteGameElementFactory {
     
     //Factory Method to create a game based on the user selection 
-    @Override
-    public Game createGame(int startDecision){
+    
+    public GameElement createGame(int startDecision){
         
         // If the start decision is 0, return null (do not start the game)
          if(startDecision==0){
@@ -39,19 +39,16 @@ public class ConcreteGameElementFactory implements GameElementFactory{
         return null;
     }
     // Method to create a player with the specified name
-    @Override
     public Player createPlayer(String name) {
         return new Player(name);
     }
     
     // Method to get the singleton instance of the board
-    @Override
     public Board createBoard() {
         return Board.getBoard();
     }
     
     // Method to get the singleton instance of the pack
-    @Override
     public Pack createPack() {
         return Pack.getPack();
     }
